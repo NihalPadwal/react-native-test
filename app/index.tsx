@@ -1,24 +1,25 @@
-import { StyleSheet, Text, View, SafeAreaView, TextInput } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  TextInput,
+  ActivityIndicator,
+} from "react-native";
 import { useState } from "react";
 import { semantic } from "@/infrastructure/tokens/semantic";
 
-export default function Index() {
-  const [number, setNumber] = useState<string>("");
-
-  function changeNumber(e: string) {
-    setNumber(e);
-  }
-
+export default function StartPage() {
   return (
-    <SafeAreaView style={styles.container}>
-      <Text>Sign In</Text>
-    </SafeAreaView>
+    <View style={styles.container}>
+      <ActivityIndicator size="large" color="gray" />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: "100%",
     justifyContent: "center",
     alignItems: "center",
   },

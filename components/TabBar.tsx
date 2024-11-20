@@ -20,8 +20,8 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
         style={{
           backgroundColor:
             colorScheme === "light"
-              ? semantic.color.background.dark.tint
-              : semantic.color.background.light.tint,
+              ? semantic.color.background.light.deep
+              : semantic.color.background.dark.deep,
           ...styles.container,
         }}
       >

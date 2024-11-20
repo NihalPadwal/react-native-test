@@ -13,6 +13,9 @@ const iconsForTabs: { [key: string]: (props: TabIconProps) => JSX.Element } = {
   profile: (props: TabIconProps) => {
     return <TabBarIcon size={sizeOfIcon} name="person" {...props} />;
   },
+  signin: (props: TabIconProps) => {
+    return <TabBarIcon size={sizeOfIcon} name="log-in" {...props} />;
+  },
 };
 
 export default iconsForTabs;

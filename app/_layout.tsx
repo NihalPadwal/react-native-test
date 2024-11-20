@@ -1,27 +1,39 @@
 import TabBar from "@/components/TabBar";
-import { Stack, Tabs } from "expo-router";
+import { AuthContextProvider, useAuth } from "@/context/authContainer";
+import { Stack, Tabs, Slot, useSegments, useRouter } from "expo-router";
+import { useEffect } from "react";
+import { StatusBar, View } from "react-native";
+import { MenuProvider } from "react-native-popup-menu";
+
+const MainLayout = () => {
+  const { isAuthenticated } = useAuth();
+  const segments = useSegments();
+  const router = useRouter();
+
+  console.log(isAuthenticated);
+
+  useEffect(() => {
+    // check if user is authenticated or not
+    if (typeof isAuthenticated === "undefined") return;
+    const inApp = segments[0] === "(app)";
+    if (isAuthenticated && !inApp) {
+      // redirect to home
+      router.replace("/(app)/home");
+    } else if (isAuthenticated === false) {
+      // redirect to sign in page
+      router.replace("/signin");
+    }
+  }, [isAuthenticated]);
+
+  return <Slot />;
+};
 
 export default function RootLayout() {
   return (
-    // <Stack>
-    //   <Stack.Screen name="index" options={{ headerShown: false }} />
-    // </Stack>
-    <Tabs
-      screenOptions={{ headerShown: false }}
-      tabBar={(props) => <TabBar {...props} />}
-    >
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: "Home",
-        }}
-      />
-      <Tabs.Screen
-        name="profile"
-        options={{
-          title: "Profile",
-        }}
-      />
-    </Tabs>
+    <AuthContextProvider>
+      <MenuProvider>
+        <MainLayout />
+      </MenuProvider>
+    </AuthContextProvider>
   );
 }
